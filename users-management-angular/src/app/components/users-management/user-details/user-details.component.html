@@ -1,0 +1,53 @@
+<form #editUserDetailsForm="ngForm" (ngSubmit)="onSubmit(editUserDetailsForm)" *ngIf="user; else showLoading">
+  <h3 class="mb-4">User Details Form :</h3>
+  <div class="form-group">
+    <label for="id">ID :</label>
+    <input [(ngModel)]="user.id" type="number" name="id" id="id" class="form-control" disabled>
+  </div>
+  <div class="form-group">
+    <label for="name">Name :</label>
+    <input required minlength="2" maxlength="20" [(ngModel)]="user.name" type="text" name="name" id="name"
+      class="form-control" placeholder="Name" #nameInput="ngModel">
+    <div *ngIf="nameInput.touched && nameInput.invalid">
+      <p class="form-text text-danger" *ngIf="nameInput.errors.required">
+        Name is required
+      </p>
+      <p class="form-text text-danger" *ngIf="nameInput.errors.minlength">
+        Min length for mame is 2 charcters
+      </p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email">Email :</label>
+    <input required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="user.email" type="email"
+      name="email" id="email" class="form-control" placeholder="Email" #emailInput="ngModel">
+    <div *ngIf="emailInput.touched && emailInput.invalid">
+      <p class="form-text text-danger" *ngIf="emailInput.errors.required">
+        Email is required
+      </p>
+      <p class="form-text text-danger" *ngIf="emailInput.errors.pattern">
+        Email must be in valid format
+      </p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="updated_at">Updated At :</label>
+    <input [ngModel]="user.updated_at | date: 'dd/MM/yyyy'" type="datetime" name="updated_at" id="updated_at"
+      class="form-control" disabled>
+  </div>
+  <div class="form-group">
+    <label for="created_at">Created At :</label>
+    <input [ngModel]="user.created_at | date: 'dd/MM/yyyy'" type="datetime" name="created_at" id="created_at"
+      class="form-control" disabled>
+  </div>
+  <input [disabled]="!editUserDetailsForm.valid" type="submit" class="btn btn-success btn-block" value="Edit User">
+  <button routerLink="/users" class="btn btn-primary btn-block" type="button">Go Back</button>
+</form>
+<ng-template #showLoading>
+  <div class="row mb-5">
+    <div class="mx-auto">
+      <span class="sr-only">Loading...</span>
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
+  </div>
+</ng-template>

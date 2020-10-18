@@ -1,0 +1,30 @@
+<form #addUserForm="ngForm" (ngSubmit)="onSubmit(addUserForm)">
+  <h3 class="mb-4">Add User Form :</h3>
+  <div class="form-group">
+    <label for="name">Name :</label>
+    <input required minlength="2" maxlength="20" [(ngModel)]="name" type="text" name="name" id="name"
+      class="form-control" placeholder="Name" #nameInput="ngModel">
+    <div *ngIf="nameInput.touched && nameInput.invalid">
+      <p class="form-text text-danger" *ngIf="nameInput.errors.required">
+        Name is required
+      </p>
+      <p class="form-text text-danger" *ngIf="nameInput.errors.minlength">
+        Min length for mame is 2 charcters
+      </p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email">Email :</label>
+    <input required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="email" type="email"
+      name="email" id="email" class="form-control" placeholder="Email" #emailInput="ngModel">
+    <div *ngIf="emailInput.touched && emailInput.invalid">
+      <p class="form-text text-danger" *ngIf="emailInput.errors.required">
+        Email is required
+      </p>
+      <p class="form-text text-danger" *ngIf="emailInput.errors.pattern">
+        Email must be in valid format
+      </p>
+    </div>
+  </div>
+  <input [disabled]="!addUserForm.valid" type="submit" class="btn btn-success btn-block" value="Add User">
+</form>

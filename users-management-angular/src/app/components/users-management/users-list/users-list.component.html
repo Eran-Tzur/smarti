@@ -1,0 +1,19 @@
+<app-user-form></app-user-form>
+<ul class="list-group mt-3" *ngIf="users && users.length>0">
+  <li class="list-group-item" *ngFor="let user of users; let i = index">
+    <app-user-item [user]="user" [index]="i"></app-user-item>
+  </li>
+</ul>
+<div class="row mt-3" *ngIf="users && users.length===0">
+  <div class="mx-auto">
+    <div>
+      <h4>No users right now, please add some</h4>
+    </div>
+  </div>
+</div>
+<div class="row mt-3" *ngIf="!users">
+  <div class="mx-auto">
+    <span class="sr-only">Loading...</span>
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+</div>
